@@ -1,89 +1,79 @@
 //console.log('connected');
 
-document.getElementById('deposit-input').addEventListener('input', function () {
+document.getElementById('deposit-button').addEventListener('click', function () {
 
+  //Deposit input
   const depositInputElement = document.getElementById('deposit-input');
   const depositInputText = depositInputElement.value;
   const depositInputAmount = parseFloat(depositInputText);
-  
-  if (!isNaN(depositInputAmount) && /^[0-9]+$/.test(depositInputText) && (depositInputAmount) >= 1) {
-
-    document.getElementById('deposit-button').removeAttribute('disabled');
-
-    document.getElementById('deposit-button').addEventListener('click', function () {
-
-      //Deposit total
-      const depositTotal = document.getElementById('deposit-total');
-      const depositTextPrevious = depositTotal.innerText;
-      const depositAmountPrevious = parseFloat(depositTextPrevious);
-
-      //Balance total
-      const balanceTotalPrevious = document.getElementById('balance-total');
-      const balanceTotalPreviousText = balanceTotalPrevious.innerText;
-      const balanceTotalPreviousAmount = parseFloat(balanceTotalPreviousText);
-
-      //if, else condition
-      const depositAmountUptodate = depositAmountPrevious + depositInputAmount;
-      depositTotal.innerText = depositAmountUptodate;
-
-      const balanceTotalUptodate = balanceTotalPreviousAmount + depositInputAmount;
-      balanceTotalPrevious.innerText = balanceTotalUptodate;
-
-      depositInputElement.value = '';
-
-      document.getElementById('deposit-button').setAttribute('disabled', 'disabled');
-      document.getElementById('error-deposit').setAttribute('hidden', 'hidden');
-      return
-    })
-
-  } else if (depositInputElement.value === " "){
-    document.getElementById('deposit-button').setAttribute('disabled', 'disabled');
-  return
-  }
-  else {
-    document.getElementById('deposit-button').setAttribute('disabled', 'disabled');
-    document.getElementById('error-deposit').removeAttribute('hidden');
-  }
-  return
-})
-
-
-/* document.getElementById('deposit-button').addEventListener('click', function () {
-  console.log('button clicked');
-
-  //Enter deposit amount
-  const depositInputElement = document.getElementById('deposit-input');
-  console.log(depositInputElement);
-  const depositInputText = depositInputElement.value;
-  console.log(depositInputText);
-  const depositInputAmount = parseFloat(depositInputText);//if, else on this variable
-  console.log(depositInputAmount);
-
-  //Validate deposit input
-  if (!isNaN(depositInputAmount) && /^[0-9]+$/.test(depositInputText) && (depositInputAmount) >= 1)){
-
-  }
 
   //Deposit total
   const depositTotal = document.getElementById('deposit-total');
-  console.log(depositTotal);
   const depositTextPrevious = depositTotal.innerText;
-  console.log(depositTextPrevious);
   const depositAmountPrevious = parseFloat(depositTextPrevious);
 
   //Balance total
   const balanceTotalPrevious = document.getElementById('balance-total');
-  console.log(balanceTotalPrevious);
   const balanceTotalPreviousText = balanceTotalPrevious.innerText;
-  console.log(balanceTotalPreviousText);
   const balanceTotalPreviousAmount = parseFloat(balanceTotalPreviousText);
-  console.log(balanceTotalPreviousAmount);
 
-  //if, else condition
-  const depositAmountUptodate = depositAmountPrevious + depositInputAmount;
-  depositTotal.innerText = depositAmountUptodate;
+  if (!isNaN(depositInputAmount) && /^[0-9]+$/.test(depositInputText) && (depositInputAmount) >= 1) {
 
-  const balanceTotalUptodate = balanceTotalPreviousAmount + depositInputAmount;
-  balanceTotalPrevious.innerText = balanceTotalUptodate;
+    //Updating deposit-total
+    const depositAmountUptodate = depositAmountPrevious + depositInputAmount;
+    depositTotal.innerText = depositAmountUptodate;
 
-}) */
+    //Updating balance-total
+    const balanceTotalUptodate = balanceTotalPreviousAmount + depositInputAmount;
+    balanceTotalPrevious.innerText = balanceTotalUptodate;
+
+    depositInputElement.value = '';
+
+    document.getElementById('error-deposit').setAttribute('hidden', 'hidden');
+
+  } else {
+    document.getElementById('error-deposit').removeAttribute('hidden');
+  }
+
+})
+
+
+document.getElementById('withdraw-button').addEventListener('click', function () {
+
+  //Withdraw input
+  const withdrawInputElement = document.getElementById('withdraw-input');
+  const withdrawInputText = withdrawInputElement.value;
+  const withdrawInputAmount = parseFloat(withdrawInputText);
+
+  //Withdraw total
+  const withdrawTotal = document.getElementById('withdraw-total');
+  const withdrawTextPrevious = withdrawTotal.innerText;
+  const withdrawAmountPrevious = parseFloat(withdrawTextPrevious);
+
+  //Balance total
+  const balanceTotalPrevious = document.getElementById('balance-total');
+  const balanceTotalPreviousText = balanceTotalPrevious.innerText;
+  const balanceTotalPreviousAmount = parseFloat(balanceTotalPreviousText);
+
+
+  if (!isNaN(withdrawInputAmount) && /^[0-9]+$/.test(withdrawInputText) && (withdrawInputAmount) >= 1 && (withdrawInputAmount <= parseFloat(balanceTotalPreviousAmount))) {
+
+    //Updating withdraw-total
+    const withdrawAmountUptodate = withdrawAmountPrevious + withdrawInputAmount;
+    withdrawTotal.innerText = withdrawAmountUptodate;
+
+    //Updating balance-total
+    const newBalanceTotalUptodate = balanceTotalPreviousAmount - withdrawInputAmount;
+    balanceTotalPrevious.innerText = newBalanceTotalUptodate
+
+    withdrawInputElement.value = '';
+
+    document.getElementById('error-withdraw').setAttribute('hidden', 'hidden');
+
+  } else {
+    document.getElementById('error-withdraw').removeAttribute('hidden');
+  }
+
+})
+
+
