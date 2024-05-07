@@ -18,7 +18,7 @@ document.getElementById('submit-buttton').addEventListener('click', function () 
   if (emailInputData == "admin@email.com" && passwordInputData == 'pass1234') {
 
     // upon fulfilling the condition, new page for banking.html will open in the same window
-    window.location.href = "../banking.html";
+    window.location.href = "banking.html";
   }
   else {
     errorLogin.removeAttribute('hidden');
